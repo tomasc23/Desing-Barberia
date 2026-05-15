@@ -1,0 +1,80 @@
+/* Barber Brizu — design tokens shared across variants */
+:root {
+  /* Cool whites & blacks */
+  --paper: oklch(98.5% 0.004 240);
+  --paper-2: oklch(96.5% 0.006 240);
+  --ink: oklch(16% 0.01 240);
+  --ink-soft: oklch(35% 0.012 240);
+  --ink-mute: oklch(52% 0.012 240);
+  --rule: oklch(89% 0.008 240);
+
+  /* Stronger blue family */
+  --blue-50: oklch(94% 0.035 240);
+  --blue-100: oklch(87% 0.07 240);
+  --blue-200: oklch(76% 0.115 245);
+  --blue-400: oklch(56% 0.155 250);
+  --blue-600: oklch(40% 0.17 252);
+  --blue-900: oklch(24% 0.09 252);
+
+  /* Stronger gold */
+  --gold: oklch(80% 0.15 85);
+  --gold-soft: oklch(92% 0.08 88);
+  --gold-deep: oklch(58% 0.14 75);
+
+  /* Pastel red accents */
+  --red: oklch(72% 0.16 22);
+  --red-soft: oklch(93% 0.045 22);
+  --red-deep: oklch(50% 0.17 22);
+}
+
+* { box-sizing: border-box; }
+
+/* Striped placeholder for photos (works on any bg) */
+.photo-ph {
+  position: relative;
+  background-color: var(--paper-2);
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 12px,
+    oklch(90% 0.01 240) 12px 13px
+  );
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-ph::after {
+  content: attr(data-label);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  background: var(--paper);
+  padding: 6px 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--rule);
+}
+
+/* Map placeholder — stylized streets on a flat bg */
+.map-ph {
+  position: relative;
+  background:
+    linear-gradient(0deg, transparent 49.5%, oklch(88% 0.015 235) 49.5% 50.5%, transparent 50.5%) 0 30%/100% 1px no-repeat,
+    linear-gradient(0deg, transparent 49.5%, oklch(88% 0.015 235) 49.5% 50.5%, transparent 50.5%) 0 65%/100% 1px no-repeat,
+    linear-gradient(90deg, transparent 49.5%, oklch(88% 0.015 235) 49.5% 50.5%, transparent 50.5%) 25% 0/1px 100% no-repeat,
+    linear-gradient(90deg, transparent 49.5%, oklch(88% 0.015 235) 49.5% 50.5%, transparent 50.5%) 70% 0/1px 100% no-repeat,
+    var(--blue-50);
+  overflow: hidden;
+}
+.map-ph .pin {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  transform: translate(-50%, -100%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--ink);
+}
