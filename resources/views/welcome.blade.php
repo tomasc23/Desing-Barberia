@@ -6,7 +6,7 @@
     <title>Barber Brizu — Jujuy 209, Formosa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ── Design tokens ── */
         :root {
@@ -54,7 +54,7 @@
             background: oklch(98.5% 0.004 240 / 0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--rule);
+            border-bottom: 1px solid oklch(88% 0.06 85);
             z-index: 100;
         }
 
@@ -192,9 +192,196 @@
             background: var(--ink);
             box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--ink);
         }
+
+        /* ── Hero italic phrase ── */
+        .hero-phrase {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 22px;
+            color: var(--ink-soft);
+            margin-top: 18px;
+            line-height: 1.3;
+        }
+
+        /* ── Stats band ── */
+        .stats-band {
+            background: var(--ink);
+            padding: 72px 48px;
+        }
+        .stats-band-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            max-width: 240px;
+        }
+        .stat-num {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: oklch(72% 0.01 240);
+            margin-top: 8px;
+        }
+        .stats-divider {
+            width: 1px;
+            height: 52px;
+            background: oklch(28% 0.012 240);
+            flex-shrink: 0;
+            margin: 0 40px;
+        }
+
+        /* ── Hamburger ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--ink);
+            border-radius: 2px;
+        }
+
+        /* ── Mobile nav overlay ── */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--paper);
+            z-index: 200;
+            flex-direction: column;
+            padding: 20px 24px 32px;
+            overflow-y: auto;
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+        .mobile-nav-close {
+            background: none;
+            border: 1px solid var(--rule);
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--ink);
+            padding: 6px 12px;
+            border-radius: 8px;
+            line-height: 1;
+            font-family: 'Outfit', sans-serif;
+        }
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .mobile-nav-links a {
+            display: block;
+            padding: 16px 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+        }
+        .mobile-nav-actions {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ── Media queries ── */
+        @media (max-width: 768px) {
+            /* Navbar */
+            .nav-links  { display: none; }
+            .nav-actions { display: none; }
+            .hamburger  { display: flex; }
+            .site-nav   { padding: 16px 20px; }
+
+            /* Hero */
+            #inicio { padding: 24px 16px 0 !important; }
+            .hero-inner {
+                grid-template-columns: 1fr !important;
+                gap: 28px !important;
+                padding: 32px 24px !important;
+            }
+            .hero-h1 { font-size: 44px !important; }
+            .hero-phrase { font-size: 18px !important; }
+            .hero-right-col { display: none !important; }
+
+            /* Services */
+            #servicios { padding: 56px 16px 56px !important; }
+            .services-grid { grid-template-columns: 1fr !important; }
+            .services-h2 { font-size: 30px !important; }
+            .services-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+
+            /* Stats */
+            .stats-band { padding: 40px 24px; }
+            .stats-band-inner { flex-direction: column; gap: 28px; }
+            .stats-divider { display: none; }
+            .stat-num { font-size: 40px; }
+            .stat-item { max-width: none; }
+
+            /* About */
+            #nosotros { padding: 56px 16px 56px !important; }
+            .about-grid { grid-template-columns: 1fr !important; }
+            .about-map  { min-height: 240px !important; }
+
+            /* Footer */
+            #contacto { padding: 56px 16px 32px !important; }
+            .footer-top    { flex-direction: column; align-items: flex-start; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
     </style>
 </head>
 <body>
+
+{{-- ══════════════════════════════════════════════════
+     MOBILE NAV OVERLAY
+══════════════════════════════════════════════════ --}}
+<div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+        <a href="#inicio" class="logo" onclick="closeMobileNav()">
+            <div class="logo-mark">BB</div>
+            <div class="logo-text">Barber Brizu</div>
+        </a>
+        <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+        <li><a href="#inicio"    onclick="closeMobileNav()">Inicio</a></li>
+        <li><a href="#servicios" onclick="closeMobileNav()">Servicios</a></li>
+        <li><a href="#nosotros"  onclick="closeMobileNav()">Sobre nosotros</a></li>
+        <li><a href="#contacto"  onclick="closeMobileNav()">Contacto</a></li>
+    </ul>
+    <div class="mobile-nav-actions">
+        <a href="/reservar" class="btn btn-dark" style="justify-content: center;" onclick="closeMobileNav()">Sacar turno →</a>
+        <a href="#" class="link-login" style="text-align: center; padding: 12px 0; display: block;" onclick="closeMobileNav()">Iniciar sesión</a>
+    </div>
+</div>
+
 
 {{-- ══════════════════════════════════════════════════
      NAVBAR
@@ -216,16 +403,22 @@
 
     <div class="nav-actions">
         <a href="#" class="link-login">Iniciar sesión</a>
-        <a href="#" class="btn btn-dark">Sacar turno</a>
+        <a href="/reservar" class="btn btn-dark">Sacar turno</a>
     </div>
+
+    <button class="hamburger" onclick="openMobileNav()" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </header>
 
 
 {{-- ══════════════════════════════════════════════════
      HERO
 ══════════════════════════════════════════════════ --}}
-<section id="inicio" style="padding: 56px 48px 72px;">
-    <div style="
+<section id="inicio" style="padding: 32px 48px 0;">
+    <div class="hero-inner" style="
         background: var(--blue-50);
         border-radius: 24px;
         padding: 64px 56px;
@@ -237,34 +430,15 @@
         overflow: hidden;
     ">
         {{-- Elementos decorativos --}}
-        <div style="
-            position: absolute; top: -120px; right: -120px;
-            width: 360px; height: 360px;
-            border-radius: 50%;
-            background: var(--blue-100);
-            opacity: 0.6;
-        "></div>
-        <div style="
-            position: absolute; bottom: -60px; left: 40%;
-            width: 14px; height: 14px;
-            border-radius: 50%;
-            background: var(--red);
-        "></div>
-        <div style="
-            position: absolute; top: 28px; left: 38%;
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-        "></div>
+        <div style="position: absolute; top: -120px; right: -120px; width: 360px; height: 360px; border-radius: 50%; background: var(--blue-100); opacity: 0.6;"></div>
+        <div style="position: absolute; bottom: -60px; left: 40%; width: 14px; height: 14px; border-radius: 50%; background: var(--red);"></div>
+        <div style="position: absolute; top: 28px; left: 38%; width: 8px; height: 8px; border-radius: 50%; background: var(--gold);"></div>
 
         {{-- Columna izquierda: texto --}}
         <div style="position: relative; z-index: 1;">
-            <span class="tag">
-                <span class="tag-dot"></span>
-                Reservá online — sin esperas
-            </span>
+            <span class="tag tag-gold">✦ Reservá online — sin esperas</span>
 
-            <h1 style="
+            <h1 class="hero-h1" style="
                 font-size: 68px;
                 font-weight: 600;
                 letter-spacing: -0.025em;
@@ -277,20 +451,16 @@
                 <span style="color: var(--blue-600);">acá.</span>
             </h1>
 
-            <p style="
-                margin-top: 24px;
-                font-size: 17px;
-                color: var(--ink-soft);
-                max-width: 440px;
-                line-height: 1.55;
-            ">
+            <p class="hero-phrase">Precisión en cada trazo.</p>
+
+            <p style="margin-top: 18px; font-size: 17px; color: var(--ink-soft); max-width: 440px; line-height: 1.55;">
                 Elegí día, horario y barbero. Te confirmamos al instante
                 y te avisamos antes de que vengas.
             </p>
 
             <div style="margin-top: 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <a href="#" class="btn btn-dark btn-dark-lg">Sacar turno →</a>
-                <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+                <a href="/reservar" class="btn btn-dark btn-dark-lg">Sacar turno →</a>
+                <a href="/agenda-publica" class="btn btn-outline">Ver agenda</a>
             </div>
 
             {{-- Mini-status --}}
@@ -305,16 +475,10 @@
         </div>
 
         {{-- Columna derecha: ilustración --}}
-        <div style="position: relative; z-index: 1;">
+        <div class="hero-right-col" style="position: relative; z-index: 1;">
 
             {{-- Ilustración barbería --}}
-            <div style="
-                height: 380px;
-                border-radius: 16px;
-                border: 1px solid var(--rule);
-                overflow: hidden;
-                background: var(--blue-50);
-            ">
+            <div style="height: 380px; border-radius: 16px; border: 1px solid var(--rule); overflow: hidden; background: var(--blue-50);">
                 <svg viewBox="0 0 600 440" preserveAspectRatio="xMidYMid slice" style="width: 100%; height: 100%; display: block;">
                     <defs>
                         <linearGradient id="sky-v2" x1="0" y1="0" x2="0" y2="1">
@@ -501,21 +665,22 @@
 {{-- ══════════════════════════════════════════════════
      SERVICIOS
 ══════════════════════════════════════════════════ --}}
-<section id="servicios" style="padding: 40px 48px 80px;">
-    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+<section id="servicios" style="padding: 80px 48px 80px;">
+    <div class="services-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
         <div>
             <span class="tag tag-gold">
                 <span class="tag-dot"></span>
                 Servicios
             </span>
-            <h2 style="font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin: 14px 0 0;">
-                Elegí qué te hacemos.
+            <h2 class="services-h2" style="font-size: 42px; font-weight: 600; letter-spacing: -0.02em; margin: 14px 0 6px;">
+                Lo que hacemos.
             </h2>
+            <p style="font-size: 15px; color: var(--ink-soft);">Servicios pensados para que salgas sintiéndote bien</p>
         </div>
         <div style="font-size: 14px; color: var(--ink-soft);">Precios de referencia</div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+    <div class="services-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
 
         {{-- Corte de cabello --}}
         <div style="
@@ -526,11 +691,11 @@
         ">
             <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--blue-50); display: grid; place-items: center; color: var(--blue-600);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="6" cy="6.5" r="2.7" />
-                    <circle cx="6" cy="17.5" r="2.7" />
-                    <line x1="20" y1="4"    x2="8.2"  y2="15.8" />
-                    <line x1="14.5" y1="14.5" x2="20" y2="20" />
-                    <line x1="8.2" y1="8.2"  x2="12"  y2="12" />
+                    <circle cx="6" cy="6.5" r="2.5"/>
+                    <circle cx="6" cy="17.5" r="2.5"/>
+                    <line x1="20" y1="4"    x2="8.2"  y2="15.8"/>
+                    <line x1="14.5" y1="14.5" x2="20" y2="20"/>
+                    <line x1="8.2"  y1="8.2"  x2="12"  y2="12"/>
                 </svg>
             </div>
             <div style="font-size: 19px; font-weight: 600; margin-top: 20px; letter-spacing: -0.01em;">Corte de cabello</div>
@@ -550,10 +715,10 @@
         ">
             <div style="width: 44px; height: 44px; border-radius: 12px; background: oklch(30% 0.02 240); display: grid; place-items: center; color: var(--gold);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 6 h12 a1.5 1.5 0 0 1 1.5 1.5 v1 a3 3 0 0 1 -3 3 H7 a3 3 0 0 1 -3 -3 v-1 A1.5 1.5 0 0 1 5 6 z" />
-                    <line x1="12" y1="11.5" x2="12" y2="19" />
-                    <path d="M9 19 h6 a1 1 0 0 1 1 1 v0 a1 1 0 0 1 -1 1 h-6 a1 1 0 0 1 -1 -1 a1 1 0 0 1 1 -1 z" />
-                    <line x1="7" y1="8.5" x2="16" y2="8.5" />
+                    <rect x="4" y="4" width="16" height="6" rx="2"/>
+                    <line x1="4" y1="7.5" x2="20" y2="7.5"/>
+                    <line x1="12" y1="10" x2="12" y2="19"/>
+                    <line x1="9.5" y1="19" x2="14.5" y2="19"/>
                 </svg>
             </div>
             <div style="font-size: 19px; font-weight: 600; margin-top: 20px; letter-spacing: -0.01em;">Barba</div>
@@ -573,9 +738,9 @@
         ">
             <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--red-soft); display: grid; place-items: center; color: var(--red-deep);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3.5 10 C 7 5, 17 5, 20.5 10" />
-                    <path d="M5 14.5 C 8 19, 16 19, 19 14.5" />
-                    <circle cx="12" cy="16.2" r="1.4" fill="currentColor" stroke="none" />
+                    <path d="M3.5 10 C 7 5, 17 5, 20.5 10"/>
+                    <path d="M5 14.5 C 8 19, 16 19, 19 14.5"/>
+                    <circle cx="12" cy="16.2" r="1.4" fill="currentColor" stroke="none"/>
                 </svg>
             </div>
             <div style="font-size: 19px; font-weight: 600; margin-top: 20px; letter-spacing: -0.01em;">Cejas</div>
@@ -595,8 +760,10 @@
         ">
             <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--gold-soft); display: grid; place-items: center; color: var(--gold-deep);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3 C 8 9.5, 6 13, 6 15.5 a 6 6 0 0 0 12 0 c 0-2.5-2-6-6-12.5 z" />
-                    <path d="M9.2 14.5 a 3 3 0 0 0 2.4 3.2" />
+                    <rect x="8" y="3" width="8" height="11" rx="2"/>
+                    <rect x="10" y="1" width="4" height="3" rx="1"/>
+                    <path d="M9 14 L9 16 L15 16 L15 14"/>
+                    <circle cx="12" cy="19.5" r="2" fill="currentColor" stroke="none"/>
                 </svg>
             </div>
             <div style="font-size: 19px; font-weight: 600; margin-top: 20px; letter-spacing: -0.01em;">Coloración</div>
@@ -612,10 +779,33 @@
 
 
 {{-- ══════════════════════════════════════════════════
+     STATS BAND
+══════════════════════════════════════════════════ --}}
+<section class="stats-band">
+    <div class="stats-band-inner">
+        <div class="stat-item">
+            <div class="stat-num">1.200+</div>
+            <div class="stat-label">clientes atendidos</div>
+        </div>
+        <div class="stats-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label">barberos</div>
+        </div>
+        <div class="stats-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num">Desde 2025</div>
+            <div class="stat-label">en Formosa</div>
+        </div>
+    </div>
+</section>
+
+
+{{-- ══════════════════════════════════════════════════
      SOBRE NOSOTROS
 ══════════════════════════════════════════════════ --}}
-<section id="nosotros" style="padding: 0 48px 80px;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+<section id="nosotros" style="padding: 80px 48px 80px;">
+    <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
 
         {{-- Info card --}}
         <div style="
@@ -629,13 +819,7 @@
                 Sobre el local
             </span>
 
-            <h3 style="
-                font-size: 32px;
-                font-weight: 600;
-                letter-spacing: -0.02em;
-                margin: 14px 0 14px;
-                line-height: 1.1;
-            ">
+            <h3 style="font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin: 14px 0 14px; line-height: 1.1;">
                 Barbería de barrio,<br>con oficio de ciudad.
             </h3>
 
@@ -645,14 +829,7 @@
                 de lunes a sábados con turnos siempre puntuales.
             </p>
 
-            <div style="
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-                margin-top: 28px;
-                padding-top: 24px;
-                border-top: 1px solid var(--rule);
-            ">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule);">
                 <div>
                     <div style="font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em;">Dirección</div>
                     <div style="font-size: 17px; font-weight: 600; margin-top: 4px;">Jujuy 209</div>
@@ -662,6 +839,7 @@
                     <div style="font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em;">Horarios</div>
                     <div style="font-size: 17px; font-weight: 600; margin-top: 4px;">Lun a Sáb</div>
                     <div style="font-size: 13px; color: var(--ink-mute);">9:00 – 22:00 hs</div>
+                    <div style="font-size: 13px; color: var(--red-deep); margin-top: 3px;">Domingo: cerrado</div>
                 </div>
             </div>
 
@@ -686,7 +864,7 @@
         </div>
 
         {{-- Mapa estilizado --}}
-        <div class="map-ph" style="border-radius: 18px; min-height: 380px; border: 1px solid var(--rule);">
+        <div class="about-map map-ph" style="border-radius: 18px; min-height: 380px; border: 1px solid var(--rule);">
             <div class="pin"></div>
             <div style="
                 position: absolute;
@@ -723,8 +901,8 @@
 {{-- ══════════════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════════════ --}}
-<footer id="contacto" style="padding: 40px 48px 32px; border-top: 1px solid var(--rule); background: var(--paper);">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; margin-bottom: 28px;">
+<footer id="contacto" style="padding: 80px 48px 32px; border-top: 1px solid var(--rule); background: var(--paper);">
+    <div class="footer-top" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; margin-bottom: 28px;">
 
         {{-- Bloque de marca --}}
         <div>
@@ -748,12 +926,7 @@
                 font-size: 14px; font-weight: 500;
                 text-decoration: none;
             ">
-                <span style="
-                    width: 28px; height: 28px; border-radius: 8px;
-                    background: var(--blue-50);
-                    display: grid; place-items: center;
-                    color: var(--blue-600); flex-shrink: 0;
-                ">
+                <span style="width: 28px; height: 28px; border-radius: 8px; background: var(--blue-50); display: grid; place-items: center; color: var(--blue-600); flex-shrink: 0;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="18" height="18" rx="5" />
                         <circle cx="12" cy="12" r="4" />
@@ -774,12 +947,7 @@
                 font-size: 14px; font-weight: 500;
                 text-decoration: none;
             ">
-                <span style="
-                    width: 28px; height: 28px; border-radius: 8px;
-                    background: oklch(95% 0.05 145);
-                    display: grid; place-items: center;
-                    color: oklch(45% 0.15 145); flex-shrink: 0;
-                ">
+                <span style="width: 28px; height: 28px; border-radius: 8px; background: oklch(95% 0.05 145); display: grid; place-items: center; color: oklch(45% 0.15 145); flex-shrink: 0;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.3.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z" />
                     </svg>
@@ -793,7 +961,7 @@
     </div>
 
     {{-- Barra inferior --}}
-    <div style="
+    <div class="footer-bottom" style="
         padding-top: 20px;
         border-top: 1px solid var(--rule);
         display: flex;
@@ -804,13 +972,24 @@
         font-size: 13px;
         color: var(--ink-mute);
     ">
-        <div>© 2026 Barber Brizu</div>
+        <div>© 2026 Barber Brizu · Hecho con ❤️ en Formosa</div>
         <div style="display: flex; gap: 20px;">
             <span>Términos</span>
             <span>Privacidad</span>
         </div>
     </div>
 </footer>
+
+<script>
+    function openMobileNav() {
+        document.getElementById('mobileNav').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+        document.getElementById('mobileNav').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+</script>
 
 </body>
 </html>

@@ -393,9 +393,88 @@
     .profile-check-item input { width: 15px; height: 15px; accent-color: var(--blue-600); cursor: pointer; flex-shrink: 0; }
     .profile-check-name { font-size: 13.5px; font-weight: 500; }
     .profile-check-desc { font-size: 12px; color: var(--ink-mute); margin-top: 1px; }
+
+    /* ─── HAMBURGER ──────────────────────────── */
+    .topbar-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: 1px solid var(--rule);
+      cursor: pointer;
+      padding: 7px 9px;
+      border-radius: 8px;
+      margin-right: 4px;
+    }
+    .topbar-hamburger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    /* ─── SIDEBAR OVERLAY (mobile) ───────────── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: oklch(16% 0.01 240 / 0.35);
+      z-index: 19;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* ─── TABS MOBILE SELECT ─────────────────── */
+    .tabs-select {
+      display: none;
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--rule);
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--paper);
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    /* ─── MOBILE RESPONSIVE ──────────────────── */
+    @media (max-width: 768px) {
+      /* Sidebar: off-canvas */
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 20;
+      }
+      .sidebar.open { transform: translateX(0); }
+
+      /* Main area: full width */
+      .main-area { margin-left: 0 !important; width: 100% !important; }
+
+      /* Topbar: full width */
+      .topbar { left: 0 !important; padding: 0 14px !important; }
+      .topbar-hamburger { display: flex; }
+
+      /* Content */
+      .content { padding: 72px 12px 32px !important; }
+
+      /* Tabs → select */
+      .tabs-bar    { display: none; }
+      .tabs-select { display: block; }
+
+      /* Tables: scrollable */
+      .table-card, .perfiles-table-wrap { overflow-x: auto; }
+      table { min-width: 520px; }
+
+      /* Modals: near full width */
+      .modal { width: 95vw !important; max-width: 95vw !important; }
+    }
   </style>
 </head>
 <body>
+
+{{-- Sidebar overlay for mobile --}}
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <div class="layout">
 
@@ -417,11 +496,11 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Inicio
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/agenda" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Agenda
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/turnos" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
           Turnos
           <span class="nav-badge">4</span>
@@ -438,7 +517,7 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           Perfiles y permisos
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/servicios" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
           Servicios
         </a>
@@ -450,19 +529,19 @@
 
       <div class="nav-group">
         <div class="nav-group-label">Económico</div>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/cobros" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
           Cobros
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/adelantos" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
           Adelantos
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/consumibles" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           Consumibles
         </a>
-        <a href="#" class="nav-link">
+        <a href="/dashboard/cierres" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           Cierres económicos
         </a>
@@ -503,6 +582,9 @@
   <div class="main-area">
 
     <header class="topbar">
+      <button class="topbar-hamburger" onclick="openSidebar()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
       <div class="topbar-title">
         <h1>Perfiles y permisos</h1>
         <div class="breadcrumb">Sistema &rarr; Gestión &rarr; Perfiles y permisos</div>
@@ -520,6 +602,13 @@
     </header>
 
     <main class="content">
+
+      <!-- TABS MOBILE SELECT -->
+      <select class="tabs-select" id="tabsSelect" onchange="switchTabFromSelect(this.value)">
+        <option value="perfiles">Perfiles</option>
+        <option value="modulos">Módulos</option>
+        <option value="asignar">Asignar perfiles a usuarios</option>
+      </select>
 
       <!-- TABS -->
       <div class="tabs-bar">
@@ -977,6 +1066,26 @@ renderPerfiles();
 renderModulos();
 renderAsignar();
 buildModuleChecklist();
+
+function switchTabFromSelect(tab) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  var btn = document.querySelector('.tab-btn[data-tab="' + tab + '"]');
+  if (btn) btn.classList.add('active');
+  var panel = document.getElementById('tab-' + tab);
+  if (panel) panel.classList.add('active');
+}
+
+function openSidebar() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 
 </body>

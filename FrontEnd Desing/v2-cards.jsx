@@ -1,5 +1,7 @@
 /* V2 — Cards modernas · azul pastel protagonista, grilla limpia */
 const V2 = () => {
+  const [showAgenda, setShowAgenda] = React.useState(false);
+
   const v2 = {
     page: {
       width: '100%',
@@ -210,7 +212,9 @@ const V2 = () => {
                 Sacar turno
                 <span>→</span>
               </button>
-              <button style={{
+              <button
+                onClick={() => setShowAgenda(true)}
+                style={{
                 padding: '14px 22px',
                 background: 'transparent',
                 color: 'var(--ink)',
@@ -219,7 +223,7 @@ const V2 = () => {
                 fontSize: 15,
                 fontWeight: 500,
                 cursor: 'pointer'
-              }}>Ver servicios</button>
+              }}>Ver agenda</button>
             </div>
 
             {/* mini-status row */}
@@ -684,6 +688,8 @@ const V2 = () => {
           </div>
         </div>
       </footer>
+
+      {showAgenda && <AgendaPublica onClose={() => setShowAgenda(false)} />}
     </div>);
 
 };

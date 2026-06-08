@@ -1,5 +1,7 @@
 /* V3 — Centrado minimal · todo al medio, máximo aire, foco en el CTA */
 const V3 = () => {
+  const [showAgenda, setShowAgenda] = React.useState(false);
+
   const v3 = {
     page: {
       width: '100%',
@@ -118,14 +120,16 @@ const V3 = () => {
               fontSize: 12,
             }}>→</span>
           </button>
-          <button style={{
+          <button
+            onClick={() => setShowAgenda(true)}
+            style={{
             padding: '17px 26px',
             background: 'transparent',
             color: 'var(--ink-soft)',
             border: 'none',
             fontSize: 15,
             cursor: 'pointer',
-          }}>Ver servicios</button>
+          }}>Ver agenda</button>
         </div>
 
         {/* small social proof / address chips */}
@@ -290,6 +294,8 @@ const V3 = () => {
         </div>
         <div style={{ marginTop: 24, fontSize: 12, color: 'var(--ink-mute)' }}>© 2026 Barber Brizu</div>
       </footer>
+
+      {showAgenda && <AgendaPublica onClose={() => setShowAgenda(false)} />}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 /* V1 — Editorial · serif grande, asimétrico, mucho aire, dorado sutil */
 const V1 = () => {
+  const [showAgenda, setShowAgenda] = React.useState(false);
+
   const v1 = {
     page: {
       width: '100%',
@@ -108,7 +110,7 @@ const V1 = () => {
           </p>
           <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', gap: 20 }}>
             <button style={{ ...v1.cta, padding: '16px 28px', fontSize: 13 }}>Sacar turno</button>
-            <a style={{ fontSize: 14, color: 'var(--ink-soft)', textDecoration: 'underline', textUnderlineOffset: 4 }}>Ver servicios</a>
+            <a onClick={() => setShowAgenda(true)} style={{ fontSize: 14, color: 'var(--ink-soft)', textDecoration: 'underline', textUnderlineOffset: 4, cursor: 'pointer' }}>Ver agenda</a>
           </div>
           {/* tiny meta row */}
           <div style={{ marginTop: 56, display: 'flex', gap: 48, paddingTop: 28, borderTop: '1px solid var(--rule)' }}>
@@ -252,6 +254,8 @@ const V1 = () => {
         </div>
         <div>© 2026 · Hecho con oficio</div>
       </footer>
+
+      {showAgenda && <AgendaPublica onClose={() => setShowAgenda(false)} />}
     </div>
   );
 };

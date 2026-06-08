@@ -479,9 +479,81 @@
     }
     .form-hint a { color: var(--blue-600); text-decoration: none; font-weight: 500; }
     .form-hint a:hover { text-decoration: underline; }
+
+    /* ─── HAMBURGER ──────────────────────────── */
+    .topbar-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: 1px solid var(--rule);
+      cursor: pointer;
+      padding: 7px 9px;
+      border-radius: 8px;
+      margin-right: 4px;
+    }
+    .topbar-hamburger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    /* ─── SIDEBAR OVERLAY (mobile) ───────────── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: oklch(16% 0.01 240 / 0.35);
+      z-index: 19;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    /* ─── MOBILE RESPONSIVE ──────────────────── */
+    @media (max-width: 768px) {
+      /* Sidebar: off-canvas */
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 20;
+      }
+      .sidebar.open { transform: translateX(0); }
+
+      /* Main area: full width */
+      .main-area {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+
+      /* Topbar: full width */
+      .topbar {
+        left: 0 !important;
+        padding: 0 16px !important;
+      }
+      .topbar-hamburger { display: flex; }
+
+      /* Stats: 2 columns */
+      .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* Content padding */
+      .content { padding: 72px 12px 32px !important; }
+
+      /* Table: scrollable */
+      .table-card { overflow-x: auto; }
+      table       { min-width: 560px; }
+
+      /* Detail panel: full width */
+      .detail-panel { width: 100% !important; }
+
+      /* Toolbar: wrap */
+      .toolbar { flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body>
+
+{{-- Sidebar overlay for mobile --}}
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <div class="layout">
 
@@ -510,7 +582,7 @@
           Inicio
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/agenda" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
@@ -520,7 +592,7 @@
           Agenda
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/turnos" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"/>
             <polyline points="12 7 12 12 15 15"/>
@@ -551,7 +623,7 @@
           Perfiles y permisos
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/servicios" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="6" cy="6" r="3"/>
             <circle cx="6" cy="18" r="3"/>
@@ -575,7 +647,7 @@
       <div class="nav-group">
         <div class="nav-group-label">Económico</div>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/cobros" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="1" x2="12" y2="23"/>
             <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
@@ -583,7 +655,7 @@
           Cobros
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/adelantos" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
             <polyline points="17 6 23 6 23 12"/>
@@ -591,7 +663,7 @@
           Adelantos
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/consumibles" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
             <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
@@ -600,7 +672,7 @@
           Consumibles
         </a>
 
-        <a href="#" class="nav-link">
+        <a href="/dashboard/cierres" class="nav-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10"/>
             <line x1="12" y1="20" x2="12" y2="4"/>
@@ -662,6 +734,9 @@
 
     <!-- TOPBAR -->
     <header class="topbar">
+      <button class="topbar-hamburger" onclick="openSidebar()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
       <div class="topbar-title">
         <h1>Gestión de usuarios</h1>
         <div class="breadcrumb">Sistema &rarr; Gestión &rarr; Usuarios</div>
@@ -1043,6 +1118,17 @@ document.getElementById('editModalOverlay').addEventListener('click', function(e
 });
 
 renderTable(USERS);
+
+function openSidebar() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 
 </body>
